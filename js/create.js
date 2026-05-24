@@ -72,6 +72,8 @@ export function renderForm() {
 
       </form>
     </div>`;
+
+  attachSubmitHandler(el.querySelector('#event-form'));
 }
 
 export function initForm() {
@@ -91,23 +93,18 @@ export function initForm() {
     const evt = getEvent(state.editingId);
     hint.hidden = !(evt && e.target.value && e.target.value !== evt.date);
   });
+}
 
-  el.addEventListener('submit', e => {
-    if (!e.target.closest('#event-form')) return;
+function attachSubmitHandler(form) {
+  form.addEventListener('submit', e => {
     e.preventDefault();
 
-    const form = el.querySelector('#event-form');
     const val = name => form.querySelector(`[name="${name}"]`)?.value.trim() || '';
-
     const title = val('title');
     const date  = val('date');
 
-    if (!title || !date) {
-      // simple inline validation — highlight missing fields
-      if (!title) form.querySelector('[name="title"]').focus();
-      else         form.querySelector('[name="date"]').focus();
-      return;
-    }
+    if (!title) { form.querySelector('[name="title"]').focus(); return; }
+    if (!date)  { form.querySelector('[name="date"]').focus();  return; }
 
     const data = { title, date, time: val('time'), location: val('location'), note: val('note'), link: val('link') };
 
