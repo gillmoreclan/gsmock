@@ -22,13 +22,21 @@ html, body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── screens ─────────────────────────────── */
+/* ── app container ───────────────────────── */
 
-.screen {
+#app {
   position: fixed;
   inset: 0;
   max-width: 480px;
   margin: 0 auto;
+  overflow: hidden;
+}
+
+/* ── screens ─────────────────────────────── */
+
+.screen {
+  position: absolute;
+  inset: 0;
   background: var(--bg);
   display: flex;
   flex-direction: column;
